@@ -1,19 +1,48 @@
 <?php
 
+$ImageBaseURL = rtrim(dirname(getServerURL()), '/').'/';
+
 define('page_template',
-'<html>
+'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
-    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
     <meta http-equiv="pragma" content="no-cache"/>
     <title>Yubico OpenID Server - %s</title>
     %s
+    <link rel="stylesheet" type="text/css" href="'.$ImageBaseURL.'css/style.css" />
+    <LINK REL="SHORTCUT ICON" HREF="'.$ImageBaseURL.'images/favicon.ico" />
+    <style type="text/css">
+       <!--
+       -->
+    </style>
   </head>
   <body onLoad="document.login.yubikey.focus();">
-    %s
-<div id="content">
-    <h1>%s</h1>
-    %s
-</div>
+  <div id="stripe">
+  &nbsp;
+  </div>
+  <div id="container">
+    <div id="logoArea">
+      <img src="'.$ImageBaseURL.'images/yubicoLogo.gif" alt="yubicoLogo" width="150" height="75"/>
+    </div>
+    <div id="greenBarContent">
+      <div id="greenBarImage">
+    <img src="'.$ImageBaseURL.'images/yubikey.jpg" alt="yubikey" width="150" height="89"/>
+      </div>
+      <div id="greenBarText">
+    <h3>
+          %s
+    </h3>
+      </div>
+    </div>
+
+    <div id="bottomContent">
+      %s
+      %s
+    </div>
+  </div>
   </body>
 </html>');
 
@@ -70,12 +99,12 @@ function navigation_render($msg, $items)
         $what .= ' &mdash; ' . $msg;
     }
     if ($items) {
-        $s = '<p>' . $what . '</p><ul class="bottom">';
+        $s = '<p>' . $what . '&nbsp;';
         foreach ($items as $action => $text) {
             $url = buildURL($action);
-            $s .= sprintf('<li>%s</li>', link_render($url, $text));
+            $s .= sprintf(',&nbsp; You may %s', link_render($url, $text));
         }
-        $s .= '</ul>';
+        $s .= '</p>';
     } else {
         $s = '<p class="bottom">' . $what . '</p>';
     }
@@ -105,7 +134,7 @@ function page_render($body, $user, $title, $h1=null, $login=false)
     }
 
     $style = getStyle();
-    $text = sprintf(page_template, $title, $style, $navigation, $h1, $body);
+    $text = sprintf(page_template, $title, $style, $h1, $navigation, $body);
     // No special headers here
     $headers = array();
     return array($headers, $text);

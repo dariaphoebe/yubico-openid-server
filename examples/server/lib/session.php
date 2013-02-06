@@ -19,7 +19,8 @@ function init()
 function getStyle()
 {
     $parent = rtrim(dirname(getServerURL()), '/');
-    $url = htmlspecialchars($parent . '/openid-server.css', ENT_QUOTES);
+    //$url = htmlspecialchars($parent . '/openid-server.css', ENT_QUOTES);
+    $url = htmlspecialchars($parent . '/css/style.css', ENT_QUOTES);
     return sprintf('<link rel="stylesheet" type="text/css" href="%s" />', $url);
 }
 
@@ -82,8 +83,8 @@ function getServer()
 {
     static $server = null;
     if (!isset($server)) {
-        $server = new Auth_OpenID_Server(getOpenIDStore(),
-                                         buildURL());
+        $server =& new Auth_OpenID_Server(getOpenIDStore(),
+                                          buildURL());
     }
     return $server;
 }

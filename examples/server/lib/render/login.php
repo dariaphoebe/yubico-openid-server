@@ -10,11 +10,17 @@ define('login_form_pat',
     <!-- %s -->
   </p>
   <form name="login" method="post" action="%s">
-    <p>
-      <b>Yubikey:</b> <input autocomplete="off" type="password" name="yubikey" id="yubikey" />
-      &nbsp;
-      <input type="submit" value="Log in" />
-    </p>
+    <table>
+      <tr>
+        <td>YubiKey:</td>
+        <td>
+           <input class="yubiKeyInput" type="text" name="yubikey" id="yubikey" style="width:230px;"/>
+        </td>
+        <td align=right>
+           <input type="submit" value="Log in" style="width:60px;"/>
+	</td>
+      </tr>
+    </table>
   </form>
 </div>
 ');

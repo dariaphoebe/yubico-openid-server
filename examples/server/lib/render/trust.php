@@ -20,12 +20,12 @@ define('trust_form_pat',
 define('normal_pat',
        '<p>Confirm <!-- %s --> login to:</p>' .
        '<p><b>%s</b></p>' .
-       '<p>by pressing button on Yubico key</p>');
+       '<p>by pressing button on your YubiKey.</p>');
 
 define('id_select_pat',
        '<p>You entered the server URL at the RP.
-Please choose the name you wish to use.  If you enter nothing, the request will be cancelled.<br/>
-<input type="text" name="idSelect" /></p>
+Confirm your login by pressing button on your YubiKey.<br/>
+<input type="hidden" name="idSelect" /></p>
 ');
 
 define('no_id_pat',
