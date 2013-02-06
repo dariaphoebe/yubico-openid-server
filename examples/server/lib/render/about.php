@@ -56,7 +56,6 @@ define('about_body',
 <p>
   You can <a href="http://www.openid.net/">read more about OpenID</a>.
 </p>');
-');
 
 /**
  * Render the about page, potentially with an error message
