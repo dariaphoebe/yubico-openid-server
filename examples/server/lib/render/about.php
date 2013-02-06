@@ -47,14 +47,6 @@ define('about_body',
 <p>
   Once you have made this change, you should be able to use your own URL
   as the OpenID URL when using any OpenID enabled site.
-</p>
-<p>
-  You can verify that it is working by using the external
-  <a href="http://www.openidenabled.com/resources/openid-test/checkup">OpenID
-  Checkup tool</a>.
-</p>
-<p>
-  You can <a href="http://www.openid.net/">read more about OpenID</a>.
 </p>');
 
 /**
