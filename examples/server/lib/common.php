@@ -22,11 +22,19 @@ function authCancel($info)
 }
 
 function doAuth($info, $trusted=null, $fail_cancels=false,
+                $yubikey=null,
                 $idpSelect=null)
 {
     if (!$info) {
         // There is no authentication information, so bail
         return authCancel(null);
+    }
+
+    list ($errors, $openid_url) = checkLogin($yubikey);
+    if (count($errors) || !$openid_url) {
+        return authCancel($info);
+    } else {
+        setLoggedInUser($openid_url);
     }
 
     if ($info->idSelect()) {
@@ -64,6 +72,7 @@ function doAuth($info, $trusted=null, $fail_cancels=false,
                            'country' => 'ES',
                            'language' => 'eu',
                            'timezone' => 'America/New_York');
+	$sreg_data = array();
 
         // Add the simple registration response values to the OpenID
         // response message.

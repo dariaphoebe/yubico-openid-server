@@ -6,28 +6,15 @@ require_once "lib/render.php";
 define('login_form_pat',
        '<div class="form">
   <p>
-
-    Enter your username into this form to log in to this server.  It
-    can be anything; this is just for demonstration purposes.  For
-    example, entering USERNAME will give you the identity URL
-
-    <pre>%s</pre>
+    <!-- Enter your Yubikey into this form to log in to this server. -->
+    <!-- %s -->
   </p>
-
-  <form method="post" action="%s">
-    <table>
-      <tr>
-        <th><label for="openid_url">Name:</label></th>
-        <td><input type="text" name="openid_url"
-                   value="%s" id="openid_url" /></td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <input type="submit" value="Log in" />
-          <input type="submit" name="cancel" value="Cancel" />
-        </td>
-      </tr>
-    </table>
+  <form name="login" method="post" action="%s">
+    <p>
+      <b>Yubikey:</b> <input autocomplete="off" type="password" name="yubikey" id="yubikey" />
+      &nbsp;
+      <input type="submit" value="Log in" />
+    </p>
   </form>
 </div>
 ');
@@ -51,7 +38,7 @@ function login_render($errors=null, $input=null, $needed=null)
     if ($errors) {
         $body = loginError_render($errors) . $body;
     }
-    return page_render($body, $current_user, 'Log In', null, true);
+    return page_render($body, $current_user, 'Login to Yubico OpenID Server', null, true);
 }
 
 function loginError_render($errors)

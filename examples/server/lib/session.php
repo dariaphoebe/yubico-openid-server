@@ -97,6 +97,34 @@ function hashPassword($password)
 }
 
 /**
+ * Check the user's login information.  Return OpenID URL for user.
+ */
+function checkLogin($yubikey)
+{
+  // from config.php
+  global $yubi;
+
+  $token_size = 32;
+  $min_identity_size = 8;
+
+  if (strlen ($yubikey) < $token_size + $min_identity_size) {
+    return array(array('Authentication failure: too short input'), false);
+  }
+
+  $identity = substr ($yubikey, 0, strlen ($yubikey) - $token_size);
+  $openid_url = $identity;
+
+  $auth = $yubi->verify($yubikey);
+  if (PEAR::isError($auth)) {
+    return array(array('Authentication failure: ' . $auth->getMessage() . 
+     '<!-- Debug output from server: ' . $yubi->getLastResponse() . '-->'),
+     false);
+  }
+
+  return array(array(), $openid_url);
+}
+
+/**
  * Get the openid_url out of the cookie
  *
  * @return mixed $openid_url The URL that was stored in the cookie or

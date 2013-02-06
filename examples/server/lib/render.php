@@ -5,10 +5,10 @@ define('page_template',
   <head>
     <meta http-equiv="cache-control" content="no-cache"/>
     <meta http-equiv="pragma" content="no-cache"/>
-    <title>%s</title>
-%s
+    <title>Yubico OpenID Server - %s</title>
+    %s
   </head>
-  <body>
+  <body onLoad="document.login.yubikey.focus();">
     %s
 <div id="content">
     <h1>%s</h1>
@@ -17,7 +17,7 @@ define('page_template',
   </body>
 </html>');
 
-define('logged_in_pat', 'You are logged in as %s (URL: %s)');
+define('logged_in_pat', 'You are logged in as %s <!-- URL: %s -->');
 
 /**
  * HTTP response line contstants
@@ -65,7 +65,7 @@ function redirect_render($redir_url)
 
 function navigation_render($msg, $items)
 {
-    $what = link_render(buildURL(), 'PHP OpenID Server');
+    $what = link_render(buildURL(), 'Yubico OpenID Server');
     if ($msg) {
         $what .= ' &mdash; ' . $msg;
     }

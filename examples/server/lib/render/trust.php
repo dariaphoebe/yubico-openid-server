@@ -5,17 +5,22 @@ require_once "lib/render.php";
 
 define('trust_form_pat',
        '<div class="form">
-  <form method="post" action="%s">
-  %s
+  <form name="login" method="post" action="%s">
+%s
+    <input autocomplete="off" type="password" name="yubikey" id="yubikey" />
     <input type="submit" name="trust" value="Confirm" />
+    <input type="hidden" name="trust"/>
+  </form>
+  <form method="post" action="%s">
     <input type="submit" value="Do not confirm" />
   </form>
 </div>
 ');
 
 define('normal_pat',
-       '<p>Do you wish to confirm your identity ' .
-       '(<code>%s</code>) with <code>%s</code>?</p>');
+       '<p>Confirm <!-- %s --> login to:</p>' .
+       '<p><b>%s</b></p>' .
+       '<p>by pressing button on Yubico key</p>');
 
 define('id_select_pat',
        '<p>You entered the server URL at the RP.
@@ -43,7 +48,7 @@ function trust_render($info)
         $prompt = sprintf(normal_pat, $lnk, $trust_root);
     }
 
-    $form = sprintf(trust_form_pat, $trust_url, $prompt);
+    $form = sprintf(trust_form_pat, $trust_url, $prompt, $trust_url);
 
     return page_render($form, $current_user, 'Trust This Site');
 }

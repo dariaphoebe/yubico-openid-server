@@ -30,7 +30,11 @@ function action_default()
     $request = $server->decodeRequest();
 
     if (!$request) {
-        return about_render();
+        if (getLoggedInUser()) {
+	    return about_render();
+        } else {
+	    return login_render();
+	}
     }
 
     setRequestInfo($request);
@@ -53,9 +57,6 @@ function action_default()
         } else if ($request->immediate) {
             $response = $request->answer(false, buildURL());
         } else {
-            if (!getLoggedInUser()) {
-                return login_render();
-            }
             return trust_render($request);
         }
     } else {
@@ -93,16 +94,11 @@ function action_logout()
  */
 function login_checkInput($input)
 {
-    $openid_url = false;
-    $errors = array();
-
-    if (!isset($input['openid_url'])) {
-        $errors[] = 'Enter an OpenID URL to continue';
+    if (!isset($input['yubikey'])) {
+        return array('Enter a Yubikey to continue', false);
     }
-    if (count($errors) == 0) {
-        $openid_url = $input['openid_url'];
-    }
-    return array($errors, $openid_url);
+    $yubikey = $input['yubikey'];
+    return checkLogin($yubikey);
 }
 
 /**
@@ -141,7 +137,8 @@ function action_trust()
 {
     $info = getRequestInfo();
     $trusted = isset($_POST['trust']);
-    return doAuth($info, $trusted, true, @$_POST['idSelect']);
+    $yubikey = $_POST['yubikey'];
+    return doAuth($info, $trusted, true, $yubikey, @$_POST['idSelect']);
 }
 
 function action_idpage()
