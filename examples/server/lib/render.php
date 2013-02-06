@@ -46,7 +46,7 @@ define('page_template',
   </body>
 </html>');
 
-define('logged_in_pat', 'You are logged in as %s <!-- URL: %s -->');
+define('logged_in_pat', 'You are logged in as %s<!-- URL: %s -->');
 
 /**
  * HTTP response line contstants
@@ -99,10 +99,10 @@ function navigation_render($msg, $items)
         $what .= ' &mdash; ' . $msg;
     }
     if ($items) {
-        $s = '<p>' . $what . '&nbsp;';
+        $s = '<p>' . $what;
         foreach ($items as $action => $text) {
             $url = buildURL($action);
-            $s .= sprintf(',&nbsp; You may %s', link_render($url, $text));
+            $s .= sprintf(', %s', link_render($url, $text));
         }
         $s .= '</p>';
     } else {
