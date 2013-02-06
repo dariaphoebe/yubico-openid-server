@@ -10,6 +10,6 @@ deployed there (which also includes the latest master of php-yubico).
 
 To install this, see [3] and start where you create config.php.
 
-[1] http://code.google.com/p/yubico-openid-server/.
+[1] http://code.google.com/p/yubico-openid-server/
 [2] https://github.com/openid/php-openid
 [3] http://code.google.com/p/yubico-openid-server/wiki/ReadMeYubico
