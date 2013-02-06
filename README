@@ -1,0 +1,12 @@
+Yubico OpenID Server
+====================
+
+This is a fork of the yubico-openid-server available at
+http://code.google.com/p/yubico-openid-server/. Instead of the outdated version of php-openid used
+in the upstream project, this is based on the current php-openid master at
+https://github.com/openid/php-openid as of 2013-02-07. It also adds a script to generate a tarball
+that can be copied to the webserver and deployed there (which also includes the latest master of
+php-yubico).
+
+To install this, see http://code.google.com/p/yubico-openid-server/wiki/ReadMeYubico and start where
+you create config.php.
