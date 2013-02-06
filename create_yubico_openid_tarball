@@ -1,0 +1,29 @@
+#!/bin/bash
+set -e
+
+tmpdir=$(mktemp -d /tmp/yubico_openid_server-XXXXXXXXXXX)
+output=${tmpdir}/yubico_openid_server
+mkdir -p "${output}"
+echo "Using temporary directory ${tmpdir}" >&2
+
+echo "Copying server…" >&2
+cp -r examples/server/* "${output}/"
+echo "Copying Auth classes…" >&2
+cp -r Auth "${output}/"
+
+echo "Getting Auth_Yubico…" >&2
+authyubico=$(mktemp -d /tmp/auth_yubico-XXXXXXXXXXX)
+curl -L http://php-yubico.googlecode.com/files/Auth_Yubico-2.4.tgz -o "${authyubico}/Auth_Yubico.tgz"
+pushd "${authyubico}" >/dev/null
+tar xvzf Auth_Yubico.tgz
+mv Auth_Yubico-*/Yubico.php "${output}/Auth/"
+popd >/dev/null
+
+echo "Generating tarball…" >&2
+pushd "${tmpdir}" >/dev/null
+tar cvjf yubico_openid_server.tar.bz2 yubico_openid_server
+popd >/dev/null
+mv -f "${tmpdir}/yubico_openid_server.tar.bz2" .
+
+echo "Cleaning up…" >&2
+rm -r "${tmpdir}" "${authyubico}"
