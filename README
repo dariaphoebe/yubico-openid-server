@@ -2,7 +2,7 @@ Yubico OpenID Server
 ====================
 
 This is a fork of the yubico-openid-server available at [1].
-	
+
 Instead of the outdated version of php-openid used in the upstream project,
 this is based on the current php-openid master[2] as of 2013-02-07. It also
 adds a script to generate a tarball that can be copied to the webserver and
