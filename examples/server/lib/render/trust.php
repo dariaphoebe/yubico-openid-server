@@ -10,29 +10,27 @@ define('trust_form_pat',
     <input autocomplete="off" type="password" name="yubikey" id="yubikey" />
     <input type="submit" name="trust" value="Confirm" />
     <input type="hidden" name="trust"/>
-  </form>
-  <form method="post" action="%s">
-    <input type="submit" value="Do not confirm" />
+	<input type="button" name="deny" value="Cancel" onclick="document.location=\'%s\'" />
   </form>
 </div>
 ');
 
 define('normal_pat',
-       '<p>Confirm <!-- %s --> login to:</p>' .
+       '<p>Confirm <!-- %s -->login to:</p>' .
        '<p><b>%s</b></p>' .
-       '<p>by pressing button on your YubiKey.</p>');
+       '<p>by pressing the button on your YubiKey.</p>');
 
 define('id_select_pat',
        '<p>You entered the server URL at the RP.
-Confirm your login by pressing button on your YubiKey.<br/>
+Confirm your login by pressing the button on your YubiKey.<br/>
 <input type="hidden" name="idSelect" /></p>
 ');
 
 define('no_id_pat',
 '
-You did not send an identifier with the request,
+<ü>You did not send an identifier with the request,
 and it was not an identifier selection request.
-Please return to the relying party and try again.
+Please return to the relying party and try again.</p>
 ');
 
 function trust_render($info)
